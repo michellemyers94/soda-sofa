@@ -22,7 +22,7 @@ from werkzeug.exceptions import HTTPException
 from dotenv import load_dotenv, find_dotenv
 from flask import Flask
 from flask import jsonify
-from livereload import Server
+
 
 
 from flask import session
@@ -40,7 +40,7 @@ client = datastore.Client()
 POSTS = "posts"
 COMMENTS = "comments"
 
-app = Flask(__name__)
+
 
 
 @app.route('/')
@@ -50,12 +50,3 @@ def index():
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
-#
-# # Create a LiveReload Server
-#     server = Server(app.wsgi_app)
-#
-#     # Watch for changes in the directory
-#     server.watch('path/to/watch')
-#
-#     # Serve on default port 8080
-#     server.serve(port=8080, host='localhost')
