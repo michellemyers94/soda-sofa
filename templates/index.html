@@ -8,10 +8,8 @@
 </head>
 
 <body class="flex flex-col min-h-screen overflow-x-hidden overflow-y-auto">
-  <!-- Basic page structure -->
-  <main class="mb-auto">
 
-      <svg xmlns="http://www.w3.org/2000/svg" width="430" height="83" viewBox="0 0 430 83" fill="none" style="position: absolute; z-index: -1; width: 100%; height: 85vh;">
+ <svg xmlns="http://www.w3.org/2000/svg" width="430" height="83" viewBox="0 0 430 83" fill="none" style="position: absolute; z-index: -1; width: 100%; height: 85vh;">
   <g filter="url(#filter0_b_2_20)">
     <path d="M587 -469.097C587 -324.452 349.352 83 64.6495 83C-220.053 83 -444 -324.452 -444 -469.097C-444 -613.742 -213.203 -731 71.5 -731C356.203 -731 587 -613.742 587 -469.097Z" fill="url(#paint0_linear_2_20)" fill-opacity="0.6"/>
   </g>
@@ -29,21 +27,28 @@
     </linearGradient>
   </defs>
 </svg>
+  <!-- Basic page structure -->
+  <main class="flex flex-col items-center justify-center flex-grow space-y-40">
 
 
-    <h1 class="text-custom-orange-default font-serif md:text-9xl text-8xl text-transform: uppercase">
+    <h1 class="text-custom-orange-default font-serif md:text-9xl text-8xl text-transform: uppercase ml-4">
         Soda Sofa. Art
     </h1>
-    <div class="container mx-auto flex items-center justify-center mt-40">
+    <div class="container mx-auto flex items-center justify-center">
         <button class="bg-custom-orange-default hover:bg-custom-orange-dark text-white text-2xl font-serif py-6 px-16 transition ease-in duration-200 rounded-full">
             Login
         </button>
     </div>
+
+      <div class="flex items-center justify-center">
+          <img src="/static/images/soda-sofa-logo.webp" alt="logo" class="w-1/4 sm:w-1/3"/>
+      </div>
+
   </main>
 
   <!-- Footer Section -->
-  <footer class="w-full bg-black bg-opacity-20 text-black flex items-center justify-center h-8">
-    &copy; Michelle Cusick
+  <footer class="w-full bg-black bg-opacity-20 text-black flex items-center justify-center">
+    site created by <a href="http://www.devmichelle.io" target="_blank"> michelle</a>
   </footer>
 </body>
 </html>
