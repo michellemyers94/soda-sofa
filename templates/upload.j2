@@ -1,0 +1,34 @@
+{% extends 'main.j2' %}
+
+{% block header %}
+    <h2 class="text-center font-serif font-bold text-3xl">{% block title %} Upload New Post {% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+    <main class="flex flex-col items-center justify-center flex-grow">
+        <form class="w-2/3 md:w-1/2 flex flex-col items-start">
+            <label class="font-serif" for="title">Post Title*</label>
+            <input type="text" class="form-input self-center border rounded py-2 px-3 w-full"
+                   placeholder="Enter Post Title">
+
+            <label class="font-serif" for="description">Post Description</label>
+            <textarea class="form-textarea self-center border rounded py-2 px-3 w-full"
+                      placeholder="Enter Post Description"></textarea>
+            <label class="font-serif" for="post-type">Post Type</label>
+            <select class="form-select px-4 py-3 rounded w-full">
+                <option value="art-wip">Art WIP</option>
+                <option value="art">Finished Art</option>
+                <option value="writing-wip">Writing WIP</option>
+                <option value="writing">Finished Writing</option>
+                <option value="resource">Important Resource</option>
+                <option value="funny">Shitpost</option>
+            </select>
+
+        </form>
+
+        <button class="bg-custom-lavender-default hover:bg-custom-lavender-dark self-center text-white font-serif text-2xl rounded-lg px-16 ease-in duration-200 mt-2">
+            Upload File
+        </button>
+    </main>
+{% endblock %}
+

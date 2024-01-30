@@ -1,7 +1,20 @@
-{%  extends 'main.j2' %}
+{% extends 'main.j2' %}
 
 {% block header %}
-    <h2>{% block title %} Dashboard {% endblock %}</h2>
-{%  endblock %}
+    <h2 class="text-center font-serif font-bold text-3xl">{% block title %} Dashboard {% endblock %}</h2>
+{% endblock %}
 
 {% block content %}
+    <main class="flex flex-col items-center justify-center flex-grow">
+        <h3>Welcome, User.</h3>
+        <button class="bg-custom-orange-default hover:bg-custom-orange-dark text-white text-2xl font-serif rounded-lg px-16 transition ease-in duration-200">
+            New Post +
+        </button>
+
+        <h4 class="font-serif font-bold">Your Uploaded Files</h4>
+
+
+        <h4 class="font-serif font-bold">Your Friend Activity</h4>
+
+    </main>
+{% endblock %}

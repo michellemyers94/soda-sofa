@@ -1,4 +1,5 @@
 import logging
+
 logging.basicConfig(level=logging.DEBUG)
 
 from google.cloud import datastore
@@ -23,8 +24,6 @@ from dotenv import load_dotenv, find_dotenv
 from flask import Flask
 from flask import jsonify
 
-
-
 from flask import session
 from flask import url_for
 from authlib.integrations.flask_client import OAuth
@@ -36,16 +35,22 @@ app = Flask(__name__, template_folder='templates')
 
 client = datastore.Client()
 
-
 POSTS = "posts"
 COMMENTS = "comments"
-
-
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.j2')
+
+@app.route('/upload')
+def upload():
+    return render_template('upload.j2')
 
 
 if __name__ == '__main__':
