@@ -7,14 +7,30 @@
 {% block content %}
     <main class="flex flex-col items-center justify-center flex-grow">
         <h3>Welcome, User.</h3>
-        <button class="bg-custom-orange-default hover:bg-custom-orange-dark text-white text-2xl font-serif rounded-lg px-16 transition ease-in duration-200">
-            New Post +
-        </button>
+        <a href="{{ url_for('upload') }}">
+            <button class="bg-custom-orange-default hover:bg-custom-orange-dark text-white text-2xl font-serif rounded-lg px-16 transition ease-in duration-200">
+                Post +
+            </button>
+        </a>
 
         <h4 class="font-serif font-bold">Your Uploaded Files</h4>
-
+{#        <table>#}
+{#        <tr class="text-bold">#}
+{#            <th>Title</th>#}
+{#            <th>Created At</th>#}
+{#        </tr>#}
+{#            {% for post in posts %}#}
+{#                <tr>#}
+{#                    <td>{{ post.title }}</td>#}
+{#                    <td>{{ post.created_at }}</td>#}
+{#                </tr>#}
+{#            {% endfor %}#}
+{#        </table>#}
 
         <h4 class="font-serif font-bold">Your Friend Activity</h4>
 
     </main>
+
+
+
 {% endblock %}
