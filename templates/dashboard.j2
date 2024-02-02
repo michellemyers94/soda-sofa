@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <main class="flex flex-col items-center justify-center flex-grow">
+    <main class="flex flex-col items-center justify-center flex-grow px-4">
         <h3>Welcome, User.</h3>
         <a href="{{ url_for('upload') }}">
             <button class="bg-custom-orange-default hover:bg-custom-orange-dark text-white text-2xl font-serif rounded-lg px-16 transition ease-in duration-200">
@@ -14,23 +14,56 @@
         </a>
 
         <h4 class="font-serif font-bold">Your Uploaded Files</h4>
-{#        <table>#}
-{#        <tr class="text-bold">#}
-{#            <th>Title</th>#}
-{#            <th>Created At</th>#}
-{#        </tr>#}
-{#            {% for post in posts %}#}
-{#                <tr>#}
-{#                    <td>{{ post.title }}</td>#}
-{#                    <td>{{ post.created_at }}</td>#}
-{#                </tr>#}
-{#            {% endfor %}#}
-{#        </table>#}
+       <div class="overflow-x-auto">
+        <table class="table-auto">
+        <tr class="text-bold border-b">
+            <th>Title</th>
+            <th>Post Type</th>
+            <th>Created At</th>
+            <th></th>
+
+
+        </tr>
+            {% for post in posts %}
+                <tr class="border-b border-gray">
+                    <td class="px-4 pt-3 pb-3"><a href="{{ post.self }}" class="underline text-custom-orange-default hover:text-custom-orange-dark">{{ post.title }}</a></td>
+                    <td class="px-4 pt-3 pb-3">{{ post['post-type'] }}</td>
+                    <td class="px-4 pt-3 pb-3">{{ post.created_at }}</td>
+                    <td class="px-4 pt-3 pb-3"><a href="#" class="delete-post underline text-custom-orange-default hover:text-custom-orange-dark" data-post-id="{{ post.id }}">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 
         <h4 class="font-serif font-bold">Your Friend Activity</h4>
 
     </main>
-
+<script>
+    document.querySelectorAll('.delete-post').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            let postId = e.target.getAttribute('data-post-id');
+            fetch('/posts/' + postId , {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    //Include other necessary request headers
+                },
+                body: JSON.stringify({id: postId}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success){
+                    //Delete was successful, remove row from the table
+                    e.target.parentElement.parentElement.remove();
+                } else {
+                    //Delete was unsuccessful, handle error
+                    console.error("Error deleting post: ", data.error);
+                }
+            });
+        });
+    });
+</script>
 
 
 {% endblock %}

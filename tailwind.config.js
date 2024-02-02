@@ -24,7 +24,10 @@ module.exports = {
         fontFamily: {
             serif: ['roboto-serif', 'serif']
         },
-        extend: {},
+        extend: {
+            opacity: ['disabled'],
+            cursor: ['disabled'],
+        },
     },
     plugins: [
         require('@tailwindcss/forms'),
