@@ -1,5 +1,5 @@
 from shared_resources import *
-import post_routes
+from post_routes import *
 
 
 @app.route('/')
@@ -9,14 +9,7 @@ def index():
 
 @app.route('/dashboard')
 def dashboard():
-    # Create a Cloud Datastore client.
-    datastore_client = datastore.Client()
-
-    # Use the Cloud Datastore client to fetch all entities of the kind 'posts'.
-    query = datastore_client.query(kind='posts')
-    posts = list(query.fetch())
-
-    # Render your template with the posts.
+    posts = get_posts()
     return render_template('dashboard.j2', posts=posts)
 
 

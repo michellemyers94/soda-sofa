@@ -31,10 +31,13 @@ from authlib.integrations.flask_client import OAuth
 from six.moves.urllib.parse import urlencode
 from datetime import datetime
 import pytz
+from flask_caching import Cache
 
 app = Flask(__name__, template_folder='templates')
 
 # app.secret_key = 'SECRET_KEY'
+
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 client = datastore.Client()
 
