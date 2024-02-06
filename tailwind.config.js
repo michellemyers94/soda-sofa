@@ -7,30 +7,52 @@ module.exports = {
         './path/to/other/html/or/js/files/**/*.js',
     ],
     theme: {
-        colors: {
-            'black': '#000',
-            'white': '#fff',
-            'custom-orange': {
-                'light': '#ef6f47',
-                'default': '#E23D09',
-                'dark': '#853b24'
-            },
-            'custom-lavender': {
-                'light': '#bfc1ff',
-                'default': '#9498FF',
-                'dark': '#585bb7'
-            }
-        },
+        // colors: {
+        //     'black': '#000',
+        //     'white': '#fff',
+        //
+        // },
         fontFamily: {
             serif: ['roboto-serif', 'serif']
         },
         extend: {
             opacity: ['disabled'],
             cursor: ['disabled'],
+            colors: {
+                'black': '#000',
+                'white': '#fff',
+                'custom-lavender': {
+                    'light': '#bfc1ff',
+                    'default': '#9498FF',
+                    'dark': '#585bb7'
+                },
+                'grenadier': {
+                    '50': '#fff5ed',
+                    '100': '#ffe9d5',
+                    '200': '#ffcea9',
+                    '300': '#ffac72',
+                    '400': '#fd7e3a',
+                    '500': '#fc5b13',
+                    '600': '#e23d09',
+                    '700': '#c42d0a',
+                    '800': '#9c2510',
+                    '900': '#7d2111',
+                    '950': '#440e06',
+                },
+
+            },
+            gradientColorStops: {
+                'primary': '#fd7e3a',
+                'secondary': '#e23d09',
+                'hover-primary': '#fc5b13',
+                'hover-secondary': '#c42d0a',
+            },
         },
     },
     plugins: [
         require('@tailwindcss/forms'),
         require('autoprefixer'),
+        ["prettier-plugin-tailwindcss"],
+        require('tailwind-gradients'),
     ],
 }

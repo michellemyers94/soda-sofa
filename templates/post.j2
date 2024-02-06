@@ -29,7 +29,7 @@
 </head>
 
 
-<body class="overflow-x-hidden overflow-y-auto">
+<body class="bg-grenadier-50 overflow-x-hidden overflow-y-auto">
 
 {#Background svg#}
 <svg xmlns="http://www.w3.org/2000/svg" width="430" height="83" fill="none" style="position: absolute; z-index: -1;">
@@ -54,26 +54,40 @@
     </defs>
 </svg>
 
-<h1 class="text-custom-orange-default font-serif text-2xl">Soda Sofa. Art</h1>
+<h1 class="text-grenadier-500 font-serif text-2xl">Soda Sofa. Art</h1>
 
 {#Navigation#}
 <nav>
     <ul>
-        <li><a href="{{ url_for('dashboard') }}" class="underline text-custom-orange-default hover:text-custom-orange-dark">Home</a></li>
+        <li><a href="{{ url_for('dashboard') }}" class="underline text-grenadier-500 hover:text-grenadier-600">Home</a>
+        </li>
     </ul>
 </nav>
 
-<h2 class="text-center font-serif font-bold text-3xl">{{ post.title }}</h2>
-<h3 class="text-center font-serif">Posted by User</h3>
+
 {#Body#}
 <section class="w-full px-16 flex flex-col items-start">
-    <p class="w-full text-left max-w-prose mx-auto"><strong>Description:</strong> {{ post.description }}</p>
-    <p class="w-full text-left max-w-prose mx-auto mt-2"><strong>Created at:</strong> {{ post.created_at }}</p>
-    <p class="w-full text-left max-w-prose mx-auto mt-2"><strong>Category:</strong> {{ post['post-type'] }}</p>
-    <p class="w-full text-left max-w-prose mx-auto mt-2"><strong>URL (if any):</strong> <a href="{{ 'http://' if 'http://' not in post.url and 'https://' not in post.url else '' }}{{ post.url }}"
-   target="_blank" class="underline text-custom-orange-default hover:text-custom-orange-dark">{{ post.url }}</a></p>
-<p class="w-full text-left max-w-prose mx-auto mt-2"><strong>Share URL</strong>:<input type="text" class="form-input" id="textboxToCopy" value="https://www.sodasofa.art/posts/{{ post.id }}">
-    <button id="copyButton" class="bg-custom-orange-default hover:bg-custom-orange-dark text-bold text-white  px-2 py-1 ease-in duration-200" onclick="copyText()">Copy</button></p>
+    <h2 class="w-full text-center font-serif font-bold text-3xl">{{ post.title }}</h2>
+    <p class="w-full text-center max-w-prose mx-auto font-bold mt-2">{{ post['post-type'] }}</p>
+    <hp class="w-full text-center font-serif">Posted by User</hp>
+    <p class="w-full  text-center text max-w-prose mx-auto">{{ post.created_at }}</p>
+    <p class="w-full text-center text-justify max-w-prose mx-auto mt-8">{{ post.description }}</p>
+
+
+    <p class="w-full text-center max-w-prose mx-auto mt-2"><a
+            href="{{ 'http://' if 'http://' not in post.url and 'https://' not in post.url else '' }}{{ post.url }}"
+            target="_blank" class="underline text-grenadier-500 hover:text-grenadier-600">{{ post.url }}</a></p>
+    <div class="md:w-full mt-2">
+        <p class=" text-center max-w-prose mx-auto mt-2"><strong>Share URL</strong>:<input type="text"
+                                                                                                 class="form-input md:w-2/3"
+                                                                                                 id="textboxToCopy"
+                                                                                                 value="https://www.sodasofa.art/posts/{{ post.id }}">
+            <button id="copyButton"
+                    class="bg-grenadier-500 hover:bg-grenadier-600 text-bold text-white  px-2 py-1 ease-in duration-200"
+                    onclick="copyText()">Copy
+            </button>
+        </p>
+    </div>
 </section>
 
 <!-- Footer Section -->
@@ -101,7 +115,7 @@
         copyButton.innerHTML = "Copied!";
 
         /* After 5 seconds, revert the button text back to "Copy" */
-        setTimeout(function() {
+        setTimeout(function () {
             copyButton.innerHTML = "Copy";
         }, 2000);
     }

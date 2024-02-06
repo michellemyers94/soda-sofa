@@ -9,15 +9,15 @@
         <form id="uploadForm" class="w-2/3 md:w-1/2 flex flex-col items-start" action="/posts" method="post"
               enctype="multipart/form-data">
             <label class="font-serif" for="title">Post Title*</label>
-            <input required type="text" class="form-input self-center border rounded py-2 px-3 w-full" name="title"
+            <input required type="text" class="form-input self-center border rounded border-grenadier-400 py-2 px-3 w-full" name="title"
                    placeholder="Enter Post Title">
 
             <label class="font-serif mt-4" for="description">Post Description</label>
-            <textarea class="form-textarea self-center border rounded py-2 px-3 w-full" name="description"
+            <textarea class="form-textarea self-center border rounded border-grenadier-400 py-2 px-3 w-full" name="description"
                       placeholder="Enter Post Description"></textarea>
 
             <label class="font-serif mt-4" for="post-type">Post Type*</label>
-            <select required class="form-select px-4 py-3 rounded w-full" name="post-type">
+            <select required class="form-select px-4 py-3 rounded border-grenadier-400 w-full" name="post-type">
                 <option value="" disabled selected>Select From Dropdown</option>
                 <option value="Art WIP">Art WIP</option>
                 <option value="Finished Art">Finished Art</option>
@@ -29,12 +29,12 @@
 
 
             <label class="font-serif mt-4" for="url">URL (if applicable)</label>
-            <input type="text" class="form-input self-center border rounded py-2 px-3 w-full" name="url"
+            <input type="text" class="form-input self-center border rounded border-grenadier-400 py-2 px-3 w-full" name="url"
                    placeholder="Enter URL">
 
             <label class="font-serif mt-4" for="datetime-local">Date (ONLY if uploading old content i.e. the 'backlog'
                 or a shitpost)</label>
-            <input type="datetime-local" class="form-input self-center border rounded py-2 px-3 w-full"
+            <input type="datetime-local" class="form-input self-center border rounded border-grenadier-400 py-2 px-3 w-full"
                    name="created_at" placeholder="Select Date">
 
             <label class="font-serif mt-4" for="image-upload">Upload Image (if applicable)</label>
