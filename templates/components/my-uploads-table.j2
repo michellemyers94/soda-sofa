@@ -1,0 +1,25 @@
+<h4 class="font-serif font-bold">Your Uploaded Files</h4>
+                        <div class="overflow-x-auto">
+                            <table class="table-auto">
+                                <tr class="text-bold border-b">
+                                    <th>Title</th>
+                                    <th>Post Type</th>
+                                    <th>Created At</th>
+                                    <th></th>
+
+
+                                </tr>
+                                {% for post in posts %}
+                                    <tr class="border-b border-gray">
+                                        <td class="px-4 pt-3 pb-3"><a href="{{ post.self }}"
+                                                                      class="underline text-grenadier-500 hover:text-grenadier-600" target="_blank">{{ post.title }}</a>
+                                        </td>
+                                        <td class="px-4 pt-3 pb-3">{{ post['post-type'] }}</td>
+                                        <td class="px-4 pt-3 pb-3">{{ post.created_at }}</td>
+                                        <td class="px-4 pt-3 pb-3"><a href="#"
+                                                                      class="delete-post underline text-grenadier-500 hover:text-grenadier-600"
+                                                                      data-post-id="{{ post.id }}">Delete</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>

@@ -5,88 +5,32 @@
 {% endblock %}
 
 {% block content %}
+
+    {#    Tablet and Desktop View with 1:5 columns spread#}
     <div class="grid gap-x-12 grid-cols-5 pl-4 pr-16">
 
-        {#    nav#}
         <div class="pt-16">
-            {#Navigation#}
-            <nav>
-                <div class="hidden md:flex md: flex-col">
-                    <a href="{{ url_for('upload') }}">
-                        <div>
-                            <button class="bg-gradient-to-r from-primary to-secondary hover:from-hover-primary hover:to-hover-secondary text-white text-2xl font-serif rounded-lg lg:px-16 md: py-3 transition ease-in duration-200">
-                                New Post +
-                            </button>
-                        </div>
-                    </a>
-                    <a href="{{ url_for('dashboard') }}">
-                        <div class="font-serif text-2xl text-grenadier-500 hover:text-grenadier-600 bg-white hover:bg-grenadier-100 transition ease-in duration-200 px-12 py-4 rounded-lg mt-8">
-                            <img src="/static/images/home-grid.svg" alt="home-icon" class="inline-block h-6 pr-4 pb-1"/>Home
-                        </div>
-                    </a>
-                    <a href="{{ url_for('my_uploads') }}">
-                        <div class="font-serif text-2xl text-grenadier-500 hover:text-grenadier-600 hover:bg-grenadier-100 transition ease-in duration-200 px-12 py-4 rounded-lg">
-                            <img src="/static/images/my-uploads.svg" alt="my-uploads-icon" class="inline-block h-6 pr-4 pb-1"/>My Uploads
-                        </div>
-                    </a>
-                    <a href="{{ url_for('all_uploads') }}">
-                        <div class="font-serif text-2xl text-grenadier-500 hover:text-grenadier-600 hover:bg-grenadier-100 transition ease-in duration-200 px-12 py-4 rounded-lg">
-                            <img src="/static/images/all-uploads.png" alt="home-icon" class="inline-block h-6 pr-4 pb-1"/>All Uploads
-                        </div>
-                    </a>
 
-
-                </div>
-                {#                <ul>#}
-                {#                    <li><a href="{{ url_for('dashboard') }}"#}
-                {#                           class="font-serif text-grenadier-500 hover:text-grenadier-600 bg-white px-16 py-4">Home</a>#}
-                {#                    </li>#}
-                {#                    <li><a href="{{ url_for('my_uploads') }}"#}
-                {#                           class="font-serif text-grenadier-500 hover:text-grenadier-600 px-16 py-4">My Uploads</a></li>#}
-                {#                </ul>#}
-            </nav>
+            {#            Navigation for Tablet and Desktop#}
+            {% include 'components/flex-nav.j2' with context %}
         </div>
 
         {#    main body#}
         <div class="col-span-4">
+
             <div class="grid grid-rows-12">
-                <div class="items-center flex justify-center">
-                    <input type="text"
-                           class="form-input border rounded-full border-grenadier-400 focus:border-grenadier-800 w-2/3"
-                           placeholder="Search" name="search">
-                </div>
+
+                {#                    Search Bar#}
+                {% include 'components/search.j2' %}
+
                 <div><h2 class="font-serif font-bold text-3xl pl-16 pt-4">{% block title %}
                     Dashboard {% endblock %}</h2></div>
                 <div class="row-span-9 pt-4">
                     <main class="flex flex-col items-center justify-center flex-grow px-4 bg-white rounded-lg pt-4 pb-8">
                         <h3>Welcome, User.</h3>
 
+                        {% include 'components/my-uploads-table.j2' %}
 
-                        <h4 class="font-serif font-bold">Your Uploaded Files</h4>
-                        <div class="overflow-x-auto">
-                            <table class="table-auto">
-                                <tr class="text-bold border-b">
-                                    <th>Title</th>
-                                    <th>Post Type</th>
-                                    <th>Created At</th>
-                                    <th></th>
-
-
-                                </tr>
-                                {% for post in posts %}
-                                    <tr class="border-b border-gray">
-                                        <td class="px-4 pt-3 pb-3"><a href="{{ post.self }}"
-                                                                      class="underline text-grenadier-500 hover:text-grenadier-600">{{ post.title }}</a>
-                                        </td>
-                                        <td class="px-4 pt-3 pb-3">{{ post['post-type'] }}</td>
-                                        <td class="px-4 pt-3 pb-3">{{ post.created_at }}</td>
-                                        <td class="px-4 pt-3 pb-3"><a href="#"
-                                                                      class="delete-post underline text-grenadier-500 hover:text-grenadier-600"
-                                                                      data-post-id="{{ post.id }}">Delete</a></td>
-                                    </tr>
-                                {% endfor %}
-                            </table>
-                        </div>
 
                         <h4 class="font-serif font-bold pt-12">Your Friend Activity</h4>
 
@@ -98,6 +42,9 @@
             </div>
         </div>
     </div>
+
+
+
     <script>
         document.querySelectorAll('.delete-post').forEach(function (link) {
             link.addEventListener('click', function (e) {

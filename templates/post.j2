@@ -13,7 +13,7 @@
     <meta property="og:title" content="{{ post.title }}">
     <meta property="og:description" content="{{ post.description }}">
     <meta property="og:image"
-          content="https://opengraph.b-cdn.net/production/documents/c37b8943-ca33-4d4e-99ee-65da35577e12.png?token=3Ysvbd4xPURcc5_zlbqkhZJN8MFY0mGmkF-J50A2tJc&height=449&width=1000&expires=33242120247">
+      content="{{ post.image_url|default('https://opengraph.b-cdn.net/production/documents/c37b8943-ca33-4d4e-99ee-65da35577e12.png?token=3Ysvbd4xPURcc5_zlbqkhZJN8MFY0mGmkF-J50A2tJc&height=449&width=1000&expires=33242120247') }}">
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -21,8 +21,8 @@
     <meta property="twitter:url" content="https://www.sodasofa.art/posts/{{ post.id }}">
     <meta name="twitter:title" content="{{ post.title }}">
     <meta name="twitter:description" content="{{ post.description }}">
-    <meta name="twitter:image"
-          content="https://opengraph.b-cdn.net/production/documents/c37b8943-ca33-4d4e-99ee-65da35577e12.png?token=3Ysvbd4xPURcc5_zlbqkhZJN8MFY0mGmkF-J50A2tJc&height=449&width=1000&expires=33242120247">
+    <meta property="og:image"
+      content="{{ post.image_url|default('https://opengraph.b-cdn.net/production/documents/c37b8943-ca33-4d4e-99ee-65da35577e12.png?token=3Ysvbd4xPURcc5_zlbqkhZJN8MFY0mGmkF-J50A2tJc&height=449&width=1000&expires=33242120247') }}">
 
     <!-- Meta Tags Generated via https://www.opengraph.xyz -->
 
@@ -72,6 +72,7 @@
     <hp class="w-full text-center font-serif">Posted by User</hp>
     <p class="w-full  text-center text max-w-prose mx-auto">{{ post.created_at }}</p>
     <p class="w-full text-center text-justify max-w-prose mx-auto mt-8">{{ post.description }}</p>
+    <img src="{{ post.image_url }}" class="object-contain mx-auto"/>
 
 
     <p class="w-full text-center max-w-prose mx-auto mt-2"><a

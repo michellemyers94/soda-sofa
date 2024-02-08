@@ -1,10 +1,20 @@
 from shared_resources import *
 
+# Define a new function to handle file uploads to avoid clutter in the main function.
+def upload_file_to_gcp_storage(file, bucket, filename):
+    blob = bucket.blob(filename)
+    try:
+        blob.upload_from_string(file.read(), content_type=file.content_type)
+        return True, f"https://storage.googleapis.com/{bucket_name}/{filename}"
+    except Exception as e:
+        logging.error("Failed to upload file to GCS: ", exc_info=True)
+        return False, f"Failed to upload file: {str(e)}"
 
 @app.route('/posts', methods=['POST', 'GET'])
 def create_and_get_all_posts():
     if request.method == 'POST':
-        content = request.get_json()
+        content = request.form
+        file = request.files.get('file')
         new_post = datastore.entity.Entity(key=client.key(POSTS))
         new_post.update({
             "title": content.get("title", ""),
@@ -12,12 +22,27 @@ def create_and_get_all_posts():
             "post-type": content.get("post-type", ""),
             "url": content.get("url", ""),
             "created_at": datetime.utcnow()
-            # add image later
+
         })
         client.put(new_post)
+
+
         post_id = new_post.key.id
         redirect_url = f"https://sodasofa.art/posts/{post_id}"
         new_post.update({"self": redirect_url})
+
+        # Upload file to GCP Storage if a file is provided
+        if file:
+            upload_success, response_message = upload_file_to_gcp_storage(file, bucket, secure_filename(file.filename))
+
+            if upload_success:
+                # Update the post with the image url
+                new_post["image_url"] = response_message
+                client.put(new_post)
+            else:
+                # Return an error response if the upload failed
+                return jsonify({"error": response_message}), 500
+
         client.put(new_post)
         cache.delete_memoized(get_posts)
         get_posts()
@@ -49,7 +74,6 @@ def create_and_get_all_posts():
 
 @app.route('/posts/<int:post_id>', methods=['GET', 'DELETE'])
 def post(post_id: int):
-
     post = get_post_by_id(post_id)
 
     if post is None:
@@ -72,7 +96,6 @@ def post(post_id: int):
 
 @cache.memoize(timeout=50)
 def get_posts():
-
     datastore_client = datastore.Client()
     query = datastore_client.query(kind='posts')
     return list(query.fetch())

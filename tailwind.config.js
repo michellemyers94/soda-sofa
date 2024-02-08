@@ -47,6 +47,9 @@ module.exports = {
                 'hover-primary': '#fc5b13',
                 'hover-secondary': '#c42d0a',
             },
+            madWidth: {
+                'custom' : '500px'
+            },
         },
     },
     plugins: [

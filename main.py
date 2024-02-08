@@ -10,7 +10,7 @@ def index():
 @app.route('/dashboard')
 def dashboard():
     posts = get_posts()
-    return render_template('dashboard.j2', posts=posts)
+    return render_template('dashboard.j2', posts=posts, active_class='dashboard')
 
 
 @app.route('/upload')
@@ -32,7 +32,7 @@ def my_uploads():
             'self': post['self']
         })
 
-    return render_template('my-uploads.j2', posts=posts)
+    return render_template('my-uploads.j2', posts=posts, active_class='my-uploads')
 
 
 @app.route('/all-uploads')
@@ -45,7 +45,7 @@ def all_uploads():
     posts = list(query.fetch())
 
     # Render your template with the posts.
-    return render_template('all-uploads.j2', posts=posts)
+    return render_template('all-uploads.j2', posts=posts, active_class='all-uploads')
 
 
 # Search for POSTS

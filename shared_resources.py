@@ -4,6 +4,11 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 from google.cloud import datastore
+from google.cloud import storage
+import os
+# Set the environment variable
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'C:\Users\Michelle\Downloads\sodasofa-fde66b03eb2a.json'
+
 from flask import Flask, request, jsonify, _request_ctx_stack, render_template, redirect
 import requests
 import logging
@@ -20,6 +25,7 @@ from jose import jwt
 import json
 from os import environ as env
 from werkzeug.exceptions import HTTPException
+from werkzeug.utils import secure_filename
 
 from dotenv import load_dotenv, find_dotenv
 from flask import Flask
@@ -41,5 +47,25 @@ cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 client = datastore.Client()
 
+# Initialize GCP Storage Client
+storage_client = storage.Client()
+bucket_name = 'image_posts'
+bucket = storage_client.bucket(bucket_name)
+
+
+
+# Initialize GCP Storage Client
+storage_client = storage.Client()
+
+# Print the service account email
+# print(f"Storage client's service account email: {storage_client._credentials.service_account_email}")
+print("hello world")
+print(os.getenv('GOOGLE_APPLICATION_CREDENTIALS'))
+print("hello world")
+bucket_name = 'image_posts'
+bucket = storage_client.bucket(bucket_name)
+
+
 POSTS = "posts"
 COMMENTS = "comments"
+

@@ -1,94 +1,80 @@
 {% extends 'main.j2' %}
 
 {% block header %}
-    <h2 class="text-center font-serif font-bold text-3xl">{% block title %} Upload New Post {% endblock %}</h2>
+
 {% endblock %}
 
 {% block content %}
-    <main class="flex flex-col items-center justify-center flex-grow">
-        <form id="uploadForm" class="w-2/3 md:w-1/2 flex flex-col items-start" action="/posts" method="post"
-              enctype="multipart/form-data">
-            <label class="font-serif" for="title">Post Title*</label>
-            <input required type="text" class="form-input self-center border rounded border-grenadier-400 py-2 px-3 w-full" name="title"
-                   placeholder="Enter Post Title">
 
-            <label class="font-serif mt-4" for="description">Post Description</label>
-            <textarea class="form-textarea self-center border rounded border-grenadier-400 py-2 px-3 w-full" name="description"
-                      placeholder="Enter Post Description"></textarea>
+    {#    Tablet and Desktop View with 1:5 columns spread#}
+    <div class="grid gap-x-12 grid-cols-5 pl-4 pr-16">
 
-            <label class="font-serif mt-4" for="post-type">Post Type*</label>
-            <select required class="form-select px-4 py-3 rounded border-grenadier-400 w-full" name="post-type">
-                <option value="" disabled selected>Select From Dropdown</option>
-                <option value="Art WIP">Art WIP</option>
-                <option value="Finished Art">Finished Art</option>
-                <option value="Writing WIP">Writing WIP</option>
-                <option value="Finished Writing">Finished Writing</option>
-                <option value="Resource">Important Resource</option>
-                <option value="Shitpost">Shitpost</option>
-            </select>
+        <div class="pt-16">
+
+            {#            Navigation for Tablet and Desktop#}
+            {% include 'components/flex-nav.j2' with context %}
+        </div>
+
+        {#    main body#}
+        <div class="col-span-4">
+
+            <div class="grid grid-rows-11">
 
 
-            <label class="font-serif mt-4" for="url">URL (if applicable)</label>
-            <input type="text" class="form-input self-center border rounded border-grenadier-400 py-2 px-3 w-full" name="url"
-                   placeholder="Enter URL">
 
-            <label class="font-serif mt-4" for="datetime-local">Date (ONLY if uploading old content i.e. the 'backlog'
-                or a shitpost)</label>
-            <input type="datetime-local" class="form-input self-center border rounded border-grenadier-400 py-2 px-3 w-full"
-                   name="created_at" placeholder="Select Date">
+                <div><h2 class="font-serif text-center font-bold text-3xl pl-16 pt-4">{% block title %}
+                    Upload New Post {% endblock %}</h2></div>
+                <div class="row-span-9 pt-4">
+                    <main class="flex flex-col items-center justify-center flex-grow">
 
-            <label class="font-serif mt-4" for="image-upload">Upload Image (if applicable)</label>
-            <input type="file">
-            <input type="submit" id="submitButton"
-                   class="bg-custom-lavender-default hover:bg-custom-lavender-dark self-center text-white font-serif text-2xl rounded-lg px-16 ease-in duration-200 mt-2 opacity-100 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"/>
-
-        </form>
+                        {#        upload form#}
+                        {% include 'components/upload-form.j2' %}
 
 
-    </main>
+                    </main>
+                </div>
+
+                {#            footer#}
+                <div></div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        document.getElementById('uploadForm').addEventListener('submit', function (event) {
-            event.preventDefault();
+    document.getElementById('uploadForm').addEventListener('submit', function (event) {
+        event.preventDefault();
 
-            let formData = new FormData(event.target);
-            let object = {};
-            formData.forEach(function (value, key) {
-                object[key] = value;
-            });
-            let json = JSON.stringify(object);
+        let formData = new FormData(event.target);
 
-            // Disable the submit button
-            document.getElementById('submitButton').disabled = true;
+        // Disable the submit button
+        document.getElementById('submitButton').disabled = true;
 
-            fetch('/posts', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: json
-            }).then(response => response.json()) // Convert response to JSON
-                .then(data => {
-                    // Assuming the server responds with the new post's ID or URL in the JSON response
-                    if (data.success && data.redirectUrl) {
-                        // Redirect to the new post's URL
-                        window.location.href = data.redirectUrl;
-                    } else {
-                        // Handle the case where the post wasn't successfully created
-                        console.log('Failed to upload post');
-                    }
-
-                    // Enable the submit button again in case something went wrong
-                    document.getElementById('submitButton').disabled = false;
-                }).catch(error => {
-                // Handle any errors that occurred during the fetch
-                console.error('Error:', error);
+        fetch('/posts', {
+            method: 'POST',
+            body: formData
+        }).then(response => response.json()) // Convert response to JSON
+            .then(data => {
+                // Assuming the server responds with the new post's ID or URL in the JSON response
+                if (data.success && data.redirectUrl) {
+                    // Redirect to the new post's URL
+                    window.location.href = data.redirectUrl;
+                } else {
+                    // Handle the case where the post wasn't successfully created
+                    console.log('Failed to upload post');
+                }
 
                 // Enable the submit button again in case something went wrong
                 document.getElementById('submitButton').disabled = false;
-            });
+            }).catch(error => {
+            // Handle any errors that occurred during the fetch
+            console.error('Error:', error);
+
+            // Enable the submit button again in case something went wrong
+            document.getElementById('submitButton').disabled = false;
         });
-    </script>
+    });
+</script>
+
 
 {% endblock %}
 
